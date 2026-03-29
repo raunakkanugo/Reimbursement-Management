@@ -1,0 +1,153 @@
+.workflow-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.workflow-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.workflow-timeline {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.workflow-step-card {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  border-left: 4px solid var(--color-primary);
+}
+
+.workflow-step-card:hover {
+  border-color: var(--color-secondary);
+}
+
+.step-drag-handle {
+  width: 40px;
+  background-color: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  cursor: grab;
+  border-right: 1px solid var(--color-border);
+}
+
+.step-drag-handle:active {
+  cursor: grabbing;
+}
+
+.step-number {
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-light);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.step-content {
+  flex: 1;
+  padding: 1.5rem;
+  background: var(--color-bg);
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.step-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.step-title-group h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-family: var(--font-body);
+}
+
+.step-icon {
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+
+.step-icon.manager { background-color: rgba(74, 171, 224, 0.1); color: #4AABE0; }
+.step-icon.finance { background-color: rgba(240, 165, 0, 0.1); color: #F0A500; }
+.step-icon.director { background-color: rgba(113, 75, 103, 0.1); color: #714B67; }
+
+.step-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.btn-icon:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.text-danger {
+  color: #E53935;
+}
+
+.text-danger:hover {
+  background-color: rgba(229, 57, 53, 0.1);
+  color: #C62828;
+}
+
+.step-body {
+  padding-top: 1rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.role-select {
+  font-weight: 500;
+  color: var(--color-text);
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.workflow-connector {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-border);
+}
+
+.workflow-end {
+  margin-top: 1rem;
+}
+
+.end-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background-color: rgba(1, 126, 132, 0.1);
+  color: var(--color-secondary);
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid rgba(1, 126, 132, 0.2);
+}
