@@ -1,0 +1,179 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+
+enum Role {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
+enum ExpenseStatus {
+  DRAFT
+  SUBMITTED
+  PENDING
+  APPROVED
+  REJECTED
+  REIMBURSED
+}
+
+enum ApproverType {
+  ROLE
+  MANAGER
+  SPECIFIC_USER
+}
+
+enum ApprovalDecision {
+  APPROVED
+  REJECTED
+  PENDING
+}
+
+model Company {
+  id              String   @id @default(uuid())
+  name            String
+  country         String
+  defaultCurrency String   @default("USD")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  users                 User[]
+  expenses              Expense[]
+  workflows             ApprovalWorkflow[]
+  rules                 ApprovalRule[]
+  announcements         UpdateAnnouncement[]
+}
+
+model User {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  passwordHash String
+  role         Role
+  department   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  managerId String?
+  manager   User?   @relation("ManagerEmployees", fields: [managerId], references: [id])
+  employees User[]  @relation("ManagerEmployees")
+
+  submittedExpenses Expense[]         @relation("ExpenseSubmitter")
+  approvals         ExpenseApproval[]
+  announcements     UpdateAnnouncement[]
+}
+
+model Expense {
+  id                      String        @id @default(uuid())
+  title                   String
+  amountOriginal          Float
+  originalCurrency        String
+  amountInCompanyCurrency Float
+  category                String
+  description             String?
+  expenseDate             DateTime
+  receiptUrl              String?
+  vendorName              String?
+  status                  ExpenseStatus @default(DRAFT)
+  currentApprovalStep     Int           @default(1)
+  submittedAt             DateTime?
+  updatedAt               DateTime      @updatedAt
+  notes                   String?
+
+  employeeId String
+  employee   User   @relation("ExpenseSubmitter", fields: [employeeId], references: [id])
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  ocrData   OCRData?
+  approvals ExpenseApproval[]
+}
+
+model OCRData {
+  id                String    @id @default(uuid())
+  extractedAmount   Float?
+  extractedDate     DateTime?
+  extractedVendor   String?
+  extractedCategory String?
+  rawText           String?
+
+  expenseId String  @unique
+  expense   Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+}
+
+model ApprovalWorkflow {
+  id        String  @id @default(uuid())
+  name      String
+  isActive  Boolean @default(true)
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  steps ApprovalStep[]
+}
+
+model ApprovalStep {
+  id                String       @id @default(uuid())
+  stepOrder         Int
+  approverType      ApproverType
+  approverRole      Role?
+  isManagerApprover Boolean      @default(false)
+  specificUserId    String?
+
+  workflowId String
+  workflow   ApprovalWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  approvals ExpenseApproval[]
+}
+
+model ExpenseApproval {
+  id         String           @id @default(uuid())
+  decision   ApprovalDecision @default(PENDING)
+  comment    String?
+  decidedAt  DateTime?
+
+  expenseId String
+  expense   Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+
+  approverId String
+  approver   User   @relation(fields: [approverId], references: [id])
+
+  stepId String
+  step   ApprovalStep @relation(fields: [stepId], references: [id])
+}
+
+model ApprovalRule {
+  id                   String  @id @default(uuid())
+  ruleType             String  // e.g., "PERCENTAGE", "HYBRID"
+  percentageThreshold  Float?
+  specificApproverRole Role?
+  isActive             Boolean @default(true)
+  description          String?
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model UpdateAnnouncement {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  tag         String   // e.g., "Compliance", "Finance"
+  createdAt   DateTime @default(now())
+
+  createdBy String
+  author    User   @relation(fields: [createdBy], references: [id])
+
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+}
