@@ -1,0 +1,175 @@
+.updates-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.updates-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.updates-composer {
+  padding: 1.5rem;
+  position: sticky;
+  top: 88px; /* header + some padding */
+}
+
+.composer-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1rem;
+}
+
+.composer-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.composer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.composer-footer {
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.updates-feed {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-title {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.update-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.update-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.update-title-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.update-title-group h4 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.update-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.update-icon.policy { background-color: rgba(74, 171, 224, 0.1); color: #4AABE0; }
+.update-icon.finance { background-color: rgba(240, 165, 0, 0.1); color: #F0A500; }
+.update-icon.compliance { background-color: rgba(113, 75, 103, 0.1); color: #714B67; }
+.update-icon.general { background-color: rgba(1, 126, 132, 0.1); color: #017E84; }
+
+.tag-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.tag-badge.policy { background-color: #4AABE0; color: white; }
+.tag-badge.finance { background-color: #F0A500; color: white; }
+.tag-badge.compliance { background-color: #714B67; color: white; }
+.tag-badge.general { background-color: #017E84; color: white; }
+
+.update-card-body p {
+  margin: 0;
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+.update-card-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.meta-info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.meta-icon {
+  opacity: 0.7;
+}
+
+.audience-badge {
+  font-size: 0.75rem;
+  background-color: var(--color-surface);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin-left: auto;
+  color: var(--color-text-light);
+}
+
+@media (max-width: 1200px) {
+  .updates-layout {
+    grid-template-columns: 1fr;
+  }
+  .updates-composer {
+    position: static;
+  }
+}
