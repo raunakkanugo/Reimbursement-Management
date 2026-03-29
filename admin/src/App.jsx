@@ -9,11 +9,13 @@ import RuleEngine from './pages/Rules/RuleEngine';
 import GlobalExpenses from './pages/Expenses/GlobalExpenses';
 import UpdatesCenter from './pages/Updates/UpdatesCenter';
 import Settings from './pages/Settings/Settings';
+import Auth from './pages/Auth/Auth';
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/auth" element={<Auth />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="users" element={<UserManagement />} />
