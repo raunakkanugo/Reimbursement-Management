@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Odoo Reimbursement Portal — Employee View | ExpenseFlow</title>
+  <meta name="description" content="Submit expenses, track approvals, and manage reimbursements effortlessly with ExpenseFlow — your smart employee reimbursement portal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ══════════════════ NAVBAR ══════════════════ -->
+  <nav class="navbar" id="main-navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" id="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#fff" stroke-width="2"/><path d="M9 14l4 4 6-8" stroke="#F0A500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>ExpenseFlow</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
+        <li><a href="#submit-expense" class="nav-link">Submit Expense</a></li>
+        <li><a href="#recent-claims" class="nav-link">My Claims</a></li>
+        <li><a href="#approval-tracker" class="nav-link">Approvals</a></li>
+        <li><a href="#footer" class="nav-link">Help</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="nav-login" id="nav-login">Login</a>
+        <a href="#" class="nav-cta-btn" id="nav-try-free">Try it free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 class="hero-heading">
+          All your business on<br/>
+          <span class="hero-highlight">one platform.</span>
+        </h1>
+        <p class="hero-subheading">
+          Simple, efficient, yet <span class="squiggle-word">affordable</span>!
+        </p>
+        <p class="hero-paragraph">
+          Submit expenses in seconds, track approvals clearly, and manage reimbursements without spreadsheets, delays, or confusion.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#submit-expense" class="btn btn-primary" id="hero-submit-btn">Submit your first expense</a>
+          <a href="#" class="btn btn-secondary" id="hero-demo-btn">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#1a1a2e" stroke-width="1.5"/><polygon points="8,6 15,10 8,14" fill="#1a1a2e"/></svg>
+            Watch demo
+          </a>
+        </div>
+      </div>
+      <div class="hero-preview">
+        <div class="preview-stack">
+          <!-- Summary cards -->
+          <div class="preview-card preview-card--summary">
+            <div class="preview-card-row">
+              <div class="mini-stat mini-stat--teal">
+                <span class="mini-stat-value">12</span>
+                <span class="mini-stat-label">Pending</span>
+              </div>
+              <div class="mini-stat mini-stat--purple">
+                <span class="mini-stat-value">₹24,500</span>
+                <span class="mini-stat-label">Approved</span>
+              </div>
+            </div>
+          </div>
+          <!-- Expense submit card -->
+          <div class="preview-card preview-card--form">
+            <div class="preview-card-title">New Expense</div>
+            <div class="preview-form-row"><span class="preview-label">Title</span><span class="preview-input">Client Dinner – Mumbai</span></div>
+            <div class="preview-form-row"><span class="preview-label">Amount</span><span class="preview-input">₹3,200</span></div>
+            <div class="preview-badge">Travel</div>
+          </div>
+          <!-- Approval widget -->
+          <div class="preview-card preview-card--approval">
+            <div class="preview-card-title">Approval</div>
+            <div class="preview-steps">
+              <span class="p-step done"></span>
+              <span class="p-step-line done"></span>
+              <span class="p-step done"></span>
+              <span class="p-step-line active"></span>
+              <span class="p-step active"></span>
+              <span class="p-step-line"></span>
+              <span class="p-step"></span>
+            </div>
+            <span class="preview-small-text">Finance Review</span>
+          </div>
+          <!-- Mini chart -->
+          <div class="preview-card preview-card--chart">
+            <div class="preview-card-title">Monthly Spend</div>
+            <div class="mini-chart">
+              <div class="bar" style="--h:40%"></div>
+              <div class="bar" style="--h:65%"></div>
+              <div class="bar" style="--h:50%"></div>
+              <div class="bar bar--accent" style="--h:85%"></div>
+              <div class="bar" style="--h:55%"></div>
+              <div class="bar" style="--h:70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ DASHBOARD ══════════════════ -->
+  <section class="section" id="dashboard">
+    <div class="container">
+      <h2 class="section-title">My Expense Dashboard</h2>
+      <div class="dashboard-grid">
+        <div class="dash-card" id="card-total">
+          <div class="dash-card-accent dash-card-accent--blue"></div>
+          <div class="dash-card-icon">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M7 12h10M7 8h6M7 16h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="dash-card-value">38</span>
+          <span class="dash-card-label">Total Submitted</span>
+        </div>
+        <div class="dash-card" id="card-pending">
+          <div class="dash-card-accent dash-card-accent--teal"></div>
+          <div class="dash-card-icon dash-card-icon--teal">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="dash-card-value">12</span>
+          <span class="dash-card-label">Pending Approval</span>
+        </div>
+        <div class="dash-card" id="card-approved">
+          <div class="dash-card-accent dash-card-accent--purple"></div>
+          <div class="dash-card-icon dash-card-icon--purple">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="dash-card-value">19</span>
+          <span class="dash-card-label">Approved Claims</span>
+        </div>
+        <div class="dash-card" id="card-reimbursed">
+          <div class="dash-card-accent dash-card-accent--yellow"></div>
+          <div class="dash-card-icon dash-card-icon--yellow">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="dash-card-value">₹1,24,500</span>
+          <span class="dash-card-label">Reimbursed Amount</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ QUICK ACTIONS ══════════════════ -->
+  <section class="section section--light" id="quick-actions">
+    <div class="container">
+      <h2 class="section-title">Quick Actions</h2>
+      <div class="quick-actions-grid">
+        <a href="#submit-expense" class="qa-card" id="qa-new-expense">
+          <div class="qa-icon qa-icon--teal">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span class="qa-label">New Expense</span>
+        </a>
+        <a href="#ocr-upload" class="qa-card" id="qa-upload-receipt">
+          <div class="qa-icon qa-icon--purple">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="qa-label">Upload Receipt</span>
+        </a>
+        <a href="#recent-claims" class="qa-card" id="qa-view-claims">
+          <div class="qa-icon qa-icon--yellow">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="qa-label">View Claims</span>
+        </a>
+        <a href="#" class="qa-card" id="qa-download-report">
+          <div class="qa-icon qa-icon--blue">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="qa-label">Download Report</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ EXPENSE FORM ══════════════════ -->
+  <section class="section" id="submit-expense">
+    <div class="container">
+      <h2 class="section-title">Submit New Expense</h2>
+      <div class="form-card">
+        <form id="expense-form" autocomplete="off">
+          <div class="form-grid">
+            <div class="form-group form-group--full">
+              <label for="expense-title" class="form-label">Expense Title</label>
+              <input type="text" id="expense-title" class="form-input" placeholder="e.g. Client dinner in Delhi" />
+            </div>
+            <div class="form-group">
+              <label for="expense-amount" class="form-label">Amount</label>
+              <input type="number" id="expense-amount" class="form-input" placeholder="0.00" />
+              <span class="form-helper" id="converted-amount">Converted value in company currency: ₹8,450</span>
+            </div>
+            <div class="form-group">
+              <label for="expense-currency" class="form-label">Currency</label>
+              <select id="expense-currency" class="form-input form-select">
+                <option value="INR" selected>INR (₹)</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="SGD">SGD (S$)</option>
+                <option value="AED">AED (د.إ)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="expense-category" class="form-label">Category</label>
+              <select id="expense-category" class="form-input form-select">
+                <option value="" disabled selected>Select category</option>
+                <option value="travel">Travel</option>
+                <option value="meals">Meals</option>
+                <option value="accommodation">Accommodation</option>
+                <option value="office">Office Supplies</option>
+                <option value="client">Client Meeting</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="expense-date" class="form-label">Date</label>
+              <input type="date" id="expense-date" class="form-input" />
+            </div>
+            <div class="form-group form-group--full">
+              <label for="expense-desc" class="form-label">Description</label>
+              <textarea id="expense-desc" class="form-input form-textarea" rows="3" placeholder="Briefly describe the expense…"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="expense-receipt" class="form-label">Upload Receipt</label>
+              <div class="form-file-area" id="form-receipt-drop">
+                <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="#017E84" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Drag & drop or <strong>browse</strong></span>
+                <input type="file" id="expense-receipt" class="form-file-input" accept="image/*,.pdf" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="expense-notes" class="form-label">Additional Notes</label>
+              <textarea id="expense-notes" class="form-input form-textarea" rows="3" placeholder="Any extra context for the reviewer…"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" id="save-draft-btn">Save Draft</button>
+            <button type="submit" class="btn btn-primary" id="submit-claim-btn">Submit Claim</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ RECENT CLAIMS ══════════════════ -->
+  <section class="section section--light" id="recent-claims">
+    <div class="container">
+      <h2 class="section-title">Recent Claims</h2>
+      <div class="table-wrapper">
+        <table class="claims-table" id="claims-table">
+          <thead>
+            <tr>
+              <th>Claim ID</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Manager Comment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Claim ID"><span class="claim-id">#EXP-1042</span></td>
+              <td data-label="Category">Travel</td>
+              <td data-label="Date">22 Mar 2026</td>
+              <td data-label="Amount">₹12,400</td>
+              <td data-label="Status"><span class="status-pill status-pill--approved">Approved</span></td>
+              <td data-label="Comment" class="comment-cell">Looks good. Approved.</td>
+              <td data-label="Action"><a href="#" class="table-action">View details</a></td>
+            </tr>
+            <tr>
+              <td data-label="Claim ID"><span class="claim-id">#EXP-1041</span></td>
+              <td data-label="Category">Meals</td>
+              <td data-label="Date">20 Mar 2026</td>
+              <td data-label="Amount">₹3,200</td>
+              <td data-label="Status"><span class="status-pill status-pill--pending">Pending</span></td>
+              <td data-label="Comment" class="comment-cell">—</td>
+              <td data-label="Action"><a href="#" class="table-action">View details</a></td>
+            </tr>
+            <tr>
+              <td data-label="Claim ID"><span class="claim-id">#EXP-1038</span></td>
+              <td data-label="Category">Office Supplies</td>
+              <td data-label="Date">18 Mar 2026</td>
+              <td data-label="Amount">₹1,850</td>
+              <td data-label="Status"><span class="status-pill status-pill--reimbursed">Reimbursed</span></td>
+              <td data-label="Comment" class="comment-cell">Processed to bank.</td>
+              <td data-label="Action"><a href="#" class="table-action">View details</a></td>
+            </tr>
+            <tr>
+              <td data-label="Claim ID"><span class="claim-id">#EXP-1035</span></td>
+              <td data-label="Category">Client Meeting</td>
+              <td data-label="Date">14 Mar 2026</td>
+              <td data-label="Amount">₹6,750</td>
+              <td data-label="Status"><span class="status-pill status-pill--rejected">Rejected</span></td>
+              <td data-label="Comment" class="comment-cell">Missing receipt. Please resubmit.</td>
+              <td data-label="Action"><a href="#" class="table-action">View details</a></td>
+            </tr>
+            <tr>
+              <td data-label="Claim ID"><span class="claim-id">#EXP-1030</span></td>
+              <td data-label="Category">Accommodation</td>
+              <td data-label="Date">10 Mar 2026</td>
+              <td data-label="Amount">₹18,900</td>
+              <td data-label="Status"><span class="status-pill status-pill--approved">Approved</span></td>
+              <td data-label="Comment" class="comment-cell">Verified with booking.</td>
+              <td data-label="Action"><a href="#" class="table-action">View details</a></td>
+            </tr>
+            <tr>
+              <td data-label="Claim ID"><span class="claim-id">#EXP-1027</span></td>
+              <td data-label="Category">Travel</td>
+              <td data-label="Date">06 Mar 2026</td>
+              <td data-label="Amount">₹5,600</td>
+              <td data-label="Status"><span class="status-pill status-pill--pending">Pending</span></td>
+              <td data-label="Comment" class="comment-cell">—</td>
+              <td data-label="Action"><a href="#" class="table-action">View details</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ APPROVAL TRACKER ══════════════════ -->
+  <section class="section" id="approval-tracker">
+    <div class="container">
+      <h2 class="section-title">Approval Journey</h2>
+      <div class="tracker-card">
+        <div class="tracker-claim-info">
+          <span class="claim-id">#EXP-1041</span>
+          <span class="tracker-category">Meals — ₹3,200</span>
+        </div>
+        <div class="tracker-stepper" id="tracker-stepper">
+          <div class="step step--done">
+            <div class="step-dot"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#017E84"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="step-label">Submitted</span>
+          </div>
+          <div class="step-connector step-connector--done"></div>
+          <div class="step step--done">
+            <div class="step-dot"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#714B67"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="step-label">Manager Review</span>
+          </div>
+          <div class="step-connector step-connector--active"></div>
+          <div class="step step--active">
+            <div class="step-dot"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#fff" stroke="#017E84" stroke-width="2"/><circle cx="8" cy="8" r="3" fill="#017E84"/></svg></div>
+            <span class="step-label">Finance Review</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step step--pending">
+            <div class="step-dot"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#fff" stroke="#DADADA" stroke-width="2"/></svg></div>
+            <span class="step-label">Director Review</span>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step step--pending">
+            <div class="step-dot"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="#fff" stroke="#DADADA" stroke-width="2"/></svg></div>
+            <span class="step-label">Reimbursed</span>
+          </div>
+        </div>
+        <div class="tracker-note">
+          <svg viewBox="0 0 20 20" fill="none" width="18" height="18"><circle cx="10" cy="10" r="8" stroke="#017E84" stroke-width="1.5"/><path d="M10 6v5M10 13.5v.5" stroke="#017E84" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <p>Your manager has approved this claim. It is now waiting for <strong>Finance review</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ OCR UPLOAD ══════════════════ -->
+  <section class="section section--light" id="ocr-upload">
+    <div class="container">
+      <h2 class="section-title">Smart Receipt Scan</h2>
+      <p class="section-subtitle">Upload a receipt and let OCR auto-fill amount, date, vendor, and expense details.</p>
+      <div class="ocr-grid">
+        <div class="ocr-drop-zone" id="ocr-drop-zone">
+          <div class="ocr-drop-inner">
+            <svg viewBox="0 0 48 48" fill="none" width="56" height="56"><rect x="6" y="10" width="36" height="28" rx="4" stroke="#714B67" stroke-width="2"/><path d="M6 30l10-8 8 6 8-10 10 12" stroke="#017E84" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="19" r="3" stroke="#F0A500" stroke-width="2"/></svg>
+            <p class="ocr-drop-text">Drag & drop your receipt here</p>
+            <p class="ocr-drop-hint">or click to browse</p>
+            <span class="ocr-drop-formats">JPG, PNG, PDF supported</span>
+            <input type="file" id="ocr-file-input" class="form-file-input" accept="image/*,.pdf" />
+          </div>
+        </div>
+        <div class="ocr-result-card" id="ocr-result-card">
+          <h3 class="ocr-result-title">Extracted Details</h3>
+          <div class="ocr-result-rows">
+            <div class="ocr-row"><span class="ocr-row-label">Vendor Name</span><span class="ocr-row-value">Taj Mahal Palace Hotel</span></div>
+            <div class="ocr-row"><span class="ocr-row-label">Amount</span><span class="ocr-row-value">₹4,850.00</span></div>
+            <div class="ocr-row"><span class="ocr-row-label">Date</span><span class="ocr-row-value">18 Mar 2026</span></div>
+            <div class="ocr-row"><span class="ocr-row-label">Suggested Category</span><span class="ocr-row-value"><span class="status-pill status-pill--approved">Accommodation</span></span></div>
+          </div>
+          <button class="btn btn-primary btn--full" id="ocr-autofill-btn">Auto-fill from receipt</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer class="footer" id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo footer-logo">
+          <svg class="nav-logo-icon" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#714B67" stroke-width="2"/><path d="M9 14l4 4 6-8" stroke="#F0A500" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>ExpenseFlow</span>
+        </a>
+        <p class="footer-tagline">Expense reimbursements made simple.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Product</a>
+        <a href="#">Pricing</a>
+        <a href="#">Help</a>
+        <a href="#">Contact</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 Odoo Reimbursement Portal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
