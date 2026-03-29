@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpenseFlow | Manager Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="ph-fill ph-receipt"></i>
+                <span>ExpenseFlow</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#">Dashboard</a></li>
+                <li><a href="#">Approvals</a></li>
+                <li><a href="#">Team Expenses</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="notifications">
+                <i class="ph ph-bell"></i>
+                <span class="badge">3</span>
+            </div>
+            <div class="profile-menu">
+                <div class="avatar">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&q=80" alt="Manager Avatar">
+                </div>
+                <span class="manager-name">Jane Doe</span>
+                <i class="ph ph-caret-down"></i>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Manage approvals with <span class="highlight-underline">clarity.</span></h1>
+            <p>Review expenses, apply rules, and approve claims faster with full visibility.</p>
+        </div>
+        <div class="hero-visual">
+            <div class="stepper-card">
+                <div class="step completed"><i class="ph-fill ph-check-circle"></i> Submitted</div>
+                <div class="step line"></div>
+                <div class="step active"><i class="ph-fill ph-circle"></i> Manager Review</div>
+                <div class="step line"></div>
+                <div class="step pending"><i class="ph ph-circle"></i> Finance</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-core">
+        <section class="summary-cards">
+            <div class="card summary-card pending-card">
+                <div class="card-icon"><i class="ph-fill ph-hourglass-medium"></i></div>
+                <div class="card-data">
+                    <span class="card-title">Pending Approvals</span>
+                    <span class="card-value">12</span>
+                </div>
+            </div>
+            <div class="card summary-card approved-card">
+                <div class="card-icon"><i class="ph-fill ph-check-circle"></i></div>
+                <div class="card-data">
+                    <span class="card-title">Approved Today</span>
+                    <span class="card-value">8</span>
+                </div>
+            </div>
+            <div class="card summary-card rejected-card">
+                <div class="card-icon"><i class="ph-fill ph-x-circle"></i></div>
+                <div class="card-data">
+                    <span class="card-title">Rejected Today</span>
+                    <span class="card-value">2</span>
+                </div>
+            </div>
+            <div class="card summary-card escalated-card">
+                <div class="card-icon"><i class="ph-fill ph-warning-circle"></i></div>
+                <div class="card-data">
+                    <span class="card-title">Escalated Cases</span>
+                    <span class="card-value">1</span>
+                </div>
+            </div>
+            <div class="card summary-card time-card">
+                <div class="card-icon"><i class="ph-fill ph-clock"></i></div>
+                <div class="card-data">
+                    <span class="card-title">Avg Approval Time</span>
+                    <span class="card-value">4.2 hrs</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content-grid">
+            <section class="pending-list-section card">
+                <div class="section-header">
+                    <h2>Pending Approval Requests</h2>
+                    <div class="filters">
+                        <button class="filter-btn active">All</button>
+                        <button class="filter-btn">High Priority</button>
+                        <div class="search-box">
+                            <i class="ph ph-magnifying-glass"></i>
+                            <input type="text" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="approvals-table">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Expense Title</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Priority</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="approvals-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="side-widgets">
+                <section class="team-overview card">
+                    <div class="section-header">
+                        <h2>Team Expense Overview</h2>
+                        <i class="ph ph-chart-bar" style="color: var(--text-muted); font-size: 1.25rem;"></i>
+                    </div>
+                    <div class="overview-stats">
+                        <div class="stat">
+                            <span class="stat-label">Total Spend (MTD)</span>
+                            <span class="stat-value">$24,500</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Budget Remaining</span>
+                            <span class="stat-value highlight-text">$15,500</span>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="category-chart">
+                        <!-- CSS Bar Chart Populated by JS -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Slide Out Detail Panel -->
+    <div class="panel-overlay" id="panel-overlay"></div>
+    <aside class="detail-panel" id="detail-panel">
+        <div class="panel-header">
+            <h2>Expense Details</h2>
+            <button class="close-btn" id="close-panel"><i class="ph ph-x"></i></button>
+        </div>
+        
+        <div class="panel-content">
+            <div class="employee-summary">
+                <img src="" id="detail-avatar" alt="Avatar">
+                <div class="employee-info">
+                    <h3 id="detail-name">Employee Name</h3>
+                    <span id="detail-title" class="expense-badge">Role</span>
+                </div>
+                <div class="submission-time" id="detail-time">
+                    Submitted: -
+                </div>
+            </div>
+
+            <div class="expense-breakdown">
+                <div class="amount-card">
+                    <span class="amount-label">Requested Amount</span>
+                    <h3 id="detail-amount">$0.00</h3>
+                    <span class="conversion" id="detail-conversion">(Converted from)</span>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="label">Date</span>
+                        <span class="value" id="detail-date">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Category</span>
+                        <span class="value" id="detail-category">-</span>
+                    </div>
+                    <div class="detail-item full-width">
+                        <span class="label">Vendor / Merchant</span>
+                        <span class="value" id="detail-vendor">-</span>
+                    </div>
+                    <div class="detail-item full-width">
+                        <span class="label">Description & Notes</span>
+                        <p class="value notes" id="detail-notes">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="receipt-section">
+                <h3>Receipt Image</h3>
+                <div class="receipt-preview">
+                    <!-- Placeholder image -->
+                    <img src="" id="detail-receipt" alt="Receipt">
+                    <div class="ocr-badge"><i class="ph-fill ph-scan"></i> Smart Scanned</div>
+                </div>
+            </div>
+
+            <div class="rule-insights">
+                <h3><i class="ph-fill ph-sparkle"></i> Approval Logic Applied</h3>
+                <ul class="insight-list" id="detail-rules">
+                    <!-- Populated by JS -->
+                </ul>
+            </div>
+            
+            <div class="action-panel">
+                <div class="comment-box">
+                    <label>Add comment (optional but recommended)</label>
+                    <textarea placeholder="e.g. Approved, great work!"></textarea>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary"><i class="ph ph-chat-circle-text"></i> Request Info</button>
+                    <button class="btn btn-danger"><i class="ph ph-x"></i> Reject</button>
+                    <button class="btn btn-primary"><i class="ph ph-check"></i> Approve</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <span class="footer-brand"><i class="ph-fill ph-receipt"></i> ExpenseFlow</span>
+            <span class="footer-tagline">Smart approvals. Zero chaos.</span>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
